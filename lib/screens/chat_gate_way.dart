@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dietitian_cons/backend/db_cloud.dart';
@@ -58,6 +57,7 @@ class _ChatGateWayState extends State<ChatGateWay> {
             return ChatScreen(
               email: widget.email,
               uid: widget.uid,
+              isAdmin: false,
             );
           } else {
             return Padding(

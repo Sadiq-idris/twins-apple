@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserTile extends StatefulWidget {
-  const UserTile({super.key, required this.user});
+  const UserTile({super.key, required this.user, required this.isAdmin});
 
   final Map user;
+  final bool isAdmin;
 
   @override
   State<UserTile> createState() => _UserTileState();
@@ -34,13 +35,14 @@ class _UserTileState extends State<UserTile> {
                           title: Text(widget.user["email"]),
                         ),
                         body: ChatScreen(
-                            email: widget.user["email"],
-                            uid: widget.user["uid"]),
+                          email: widget.user["email"],
+                          uid: widget.user["uid"],
+                          isAdmin: true,
+                        ),
                       );
                     }));
                   },
-                  child: widget.user["email"] !=
-                          Provider.of<MyAuthProvider>(context).adminEmail
+                  child: !widget.isAdmin
                       ? Container(
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
@@ -69,13 +71,14 @@ class _UserTileState extends State<UserTile> {
                           title: Text(widget.user["email"]),
                         ),
                         body: ChatScreen(
-                            email: widget.user["email"],
-                            uid: widget.user["uid"]),
+                          email: widget.user["email"],
+                          uid: widget.user["uid"],
+                          isAdmin: false,
+                        ),
                       );
                     }));
                   },
-                  child: widget.user["email"] !=
-                          Provider.of<MyAuthProvider>(context).adminEmail
+                  child: !widget.isAdmin
                       ? Container(
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),

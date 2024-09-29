@@ -14,6 +14,7 @@ class DbCloud {
   final _product = FirebaseFirestore.instance.collection("products");
   final _order = FirebaseFirestore.instance.collection("orders");
   final _report = FirebaseFirestore.instance.collection("reports");
+  final _admin = FirebaseFirestore.instance.collection("admins");
 
   // Adding aritcle to database
   Future<void> add(String title, String thumnailUrl, String content) async {
@@ -397,6 +398,32 @@ class DbCloud {
   Future getConsultationPaid(String email)async{
     try{
       return await FirebaseFirestore.instance.collection("consultation").doc(email).get();
+    } catch(error){
+      rethrow;
+    }
+  }
+
+  Future addAdmin(String email, String uid)async{
+    try{
+      _admin.doc(uid).set({
+        "email":email,
+      });
+    } catch (error){
+      rethrow;
+    }
+  }
+
+  Stream getAdmins(){
+    try{
+      return _admin.snapshots();
+    } catch(error){
+      rethrow;
+    }
+  }
+
+  Future deleteAdmin(String docId)async{
+    try{
+      await _admin.doc(docId).delete();
     } catch(error){
       rethrow;
     }

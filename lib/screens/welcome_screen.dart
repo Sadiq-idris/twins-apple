@@ -1,7 +1,9 @@
 import 'package:dietitian_cons/backend/auth_services.dart';
+import 'package:dietitian_cons/backend/db_cloud.dart';
 import 'package:dietitian_cons/components/my_button.dart';
 import 'package:dietitian_cons/components/my_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -12,6 +14,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool isLoading = false;
+  final DbCloud _cloud = DbCloud();
 
   AuthServices _authServices = AuthServices();
 
@@ -36,9 +39,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         );
       } else {
-        setState(() {
-          isLoading = false;
-        });
+        // setState(() {
+        //   isLoading = false;
+        // });
+        _cloud.saveUser(response.email, response.uid, null);
+        final formattedDate = DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
+
+        final dateTime = DateFormat("yyy-MM-dd").format(DateTime.now());
+
+        if(formattedDate == dateTime){
+          _cloud.consultationPaid(response.email, null);
+        }
         Navigator.pushNamed(context, "auth-gate");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

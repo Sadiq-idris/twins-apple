@@ -1,16 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dietitian_cons/backend/db_cloud.dart';
 import 'package:dietitian_cons/components/message_card.dart';
 import 'package:dietitian_cons/components/my_input_field.dart';
-import 'package:dietitian_cons/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.email, required this.uid});
+  const ChatScreen({
+    super.key,
+    required this.email,
+    required this.uid,
+    required this.isAdmin,
+  });
 
   final String email;
   final String uid;
+  final bool isAdmin;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -48,17 +51,13 @@ class _ChatScreenState extends State<ChatScreen> {
       scrollDown();
     });
     messageController.clear();
-    final adminEmail = Provider.of<MyAuthProvider>(context, listen: false).adminEmail;
-    final userEmail = Provider.of<MyAuthProvider>(context, listen: false).user!.email;
-    if (adminEmail != userEmail) {
+    if (!widget.isAdmin) {
       cloud.addNotification(widget.email, true, false);
     } else {
       print("admin send");
       cloud.addNotification(widget.email, false, true);
     }
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
@@ -70,9 +69,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final adminEmail = Provider.of<MyAuthProvider>(context, listen: false).adminEmail;
-    final user = Provider.of<MyAuthProvider>(context, listen: false).user;
-
     return Column(
       children: [
         Expanded(
@@ -90,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                     return MessageCard(
                         message: message["message"],
-                        sender: user!.email == adminEmail
+                        sender: widget.isAdmin
                             ? !message["sender"]
                             : message["sender"]);
                   },

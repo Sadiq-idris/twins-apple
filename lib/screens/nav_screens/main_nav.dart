@@ -24,7 +24,6 @@ class _MainNavState extends State<MainNav> {
 
   @override
   Widget build(BuildContext context) {
-        final adminUser = Provider.of<MyAuthProvider>(context, listen: false).adminEmail;
     final userEmail = Provider.of<MyAuthProvider>(context, listen:false).user!.email;
     
     return Scaffold(

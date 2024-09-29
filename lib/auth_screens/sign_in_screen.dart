@@ -3,8 +3,8 @@ import 'package:dietitian_cons/backend/db_cloud.dart';
 import 'package:dietitian_cons/components/my_button.dart';
 import 'package:dietitian_cons/components/my_input_field.dart';
 import 'package:dietitian_cons/components/social_button.dart';
-import 'package:dietitian_cons/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -56,7 +56,6 @@ class _SignInScreenState extends State<SignInScreen> {
         setState(() {
           isLoading = false;
         });
-        print("consult");
         Navigator.pushNamed(context, "home");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -94,6 +93,14 @@ class _SignInScreenState extends State<SignInScreen> {
         });
         // final user = await _cloud.getSingleUser(response.email);
         _cloud.saveUser(response.email, response.uid, null);
+        final formattedDate = DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
+
+        final dateTime = DateFormat("yyy-MM-dd").format(DateTime.now());
+
+        if(formattedDate == dateTime){
+          _cloud.consultationPaid(response.email, null);
+        }
+        _cloud.addNotification(response.email, false, false);
         Navigator.pushNamed(context, "auth-gate");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

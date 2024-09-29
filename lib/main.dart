@@ -1,5 +1,4 @@
 // import 'package:dietitian_cons/backend/my_cloud_message.dart';
-import 'package:dietitian_cons/backend/my_cloud_message.dart';
 import 'package:dietitian_cons/firebase_options.dart';
 import 'package:dietitian_cons/myAds/ad_helper.dart';
 import 'package:dietitian_cons/provider/auth_provider.dart';
@@ -25,8 +24,6 @@ void main() async {
   );
   // initializing mobile ad sdk
   await AdHelper().initAd();
-  // requesting permission from device fcm
-  await MyCloudMessage().initNotification();
   
   runApp(const MyApp());
 }

@@ -4,6 +4,7 @@ import 'package:dietitian_cons/components/my_button.dart';
 import 'package:dietitian_cons/components/my_input_field.dart';
 import 'package:dietitian_cons/components/social_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -59,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       _cloud.saveUser(user.email, user.uid, int.parse(_phoneNumberController.text));
       _cloud.consultationPaid(user.email, null);
+      _cloud.addNotification(user.email, false, false);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Check your email to verify your account"),
@@ -95,7 +97,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           isLoading = false;
         });
         _cloud.saveUser(response.email, response.uid, int.parse(response.phoneNumber));
-        _cloud.consultationPaid(response.email, null);
+        _cloud.addNotification(response.email, false, false);
+
+        final formattedDate = DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
+        final dateTime = DateFormat("yyy-MM-dd").format(DateTime.now());
+
+        if(formattedDate == dateTime){
+          _cloud.consultationPaid(response.email, null);
+        }
+        
         Navigator.pushNamed(context, "auth-gate");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
