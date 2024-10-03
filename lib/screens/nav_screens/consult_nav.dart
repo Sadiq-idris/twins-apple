@@ -26,28 +26,25 @@ class _ConsultNavState extends State<ConsultNav> {
         title: const Text("Chats"),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: StreamBuilder(
-            stream: cloud.getAdmins(),
-            builder: (context, snapshots) {
-              if (snapshots.hasData) {
-                final data = snapshots.data.docs;
-                for (var admin in data) {
-                  if (user!.email == admin["email"] || user.email == adminEmail) {
-                    return displayingUsers(cloud);
-                  } else {
-                    return ChatGateWay(
-                        email: user.email!,
-                        name: user.displayName!,
-                        uid: user.uid);
-                  }
+      body: StreamBuilder(
+          stream: cloud.getAdmins(),
+          builder: (context, snapshots) {
+            if (snapshots.hasData) {
+              final data = snapshots.data.docs;
+              for (var admin in data) {
+                if (user!.email == admin["email"] || user.email == adminEmail) {
+                  return displayingUsers(cloud);
+                } else {
+                  return ChatGateWay(
+                      email: user.email!,
+                      name: user.displayName!,
+                      uid: user.uid);
                 }
               }
-        
-              return const Center(child: CircularProgressIndicator());
-            }),
-      ),
+            }
+      
+            return const Center(child: CircularProgressIndicator());
+          }),
     );
   }
 
@@ -69,7 +66,7 @@ class _ConsultNavState extends State<ConsultNav> {
           }
         }
 
-        return const Text("Loadding....");
+        return const Center(child: CircularProgressIndicator(),);
       },
     );
   }

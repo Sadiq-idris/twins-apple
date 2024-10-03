@@ -66,6 +66,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             children: [
               Text(
                 "Choose new admin user",
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               Expanded(
                 child: StreamBuilder(

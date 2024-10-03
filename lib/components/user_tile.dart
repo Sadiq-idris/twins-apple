@@ -1,8 +1,6 @@
 import 'package:dietitian_cons/backend/db_cloud.dart';
-import 'package:dietitian_cons/provider/auth_provider.dart';
 import 'package:dietitian_cons/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class UserTile extends StatefulWidget {
   const UserTile({super.key, required this.user, required this.isAdmin});

@@ -1,5 +1,7 @@
 import 'package:dietitian_cons/backend/auth_services.dart';
 import 'package:dietitian_cons/provider/auth_provider.dart';
+import 'package:dietitian_cons/screens/about_us_screen.dart';
+import 'package:dietitian_cons/screens/contact_us_screen.dart';
 import 'package:dietitian_cons/screens/profile_screen.dart';
 import 'package:dietitian_cons/screens/report_screen.dart';
 import 'package:dietitian_cons/screens/admin_users_screen.dart';
@@ -40,6 +42,26 @@ class _MyDrawerState extends State<MyDrawer> {
                 },
                 child: const ListTile(
                     leading: Icon(Icons.person), title: Text("Profile")),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ContactUsScreen()));
+                },
+                child: const ListTile(
+                    leading: Icon(Icons.phone), title: Text("Contact us")),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AboutUsScreen()));
+                },
+                child: const ListTile(
+                    leading: Icon(Icons.factory_rounded), title: Text("About us")),
               ),
               if (_authServices.getCurrentuser()!.email == adminEmail)
                 InkWell(

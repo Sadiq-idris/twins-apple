@@ -58,7 +58,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         isLoading = false;
       });
-      _cloud.saveUser(user.email, user.uid, int.parse(_phoneNumberController.text));
+      _cloud.saveUser(
+          user.email, user.uid, int.parse(_phoneNumberController.text));
       _cloud.consultationPaid(user.email, null);
       _cloud.addNotification(user.email, false, false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -96,16 +97,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         setState(() {
           isLoading = false;
         });
-        _cloud.saveUser(response.email, response.uid, int.parse(response.phoneNumber));
+        _cloud.saveUser(
+            response.email, response.uid, int.parse(response.phoneNumber));
         _cloud.addNotification(response.email, false, false);
 
-        final formattedDate = DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
+        final formattedDate =
+            DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
         final dateTime = DateFormat("yyy-MM-dd").format(DateTime.now());
 
-        if(formattedDate == dateTime){
+        if (formattedDate == dateTime) {
           _cloud.consultationPaid(response.email, null);
         }
-        
+
         Navigator.pushNamed(context, "auth-gate");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -115,6 +118,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       }
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override

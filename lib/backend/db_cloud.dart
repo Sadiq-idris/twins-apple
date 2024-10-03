@@ -357,11 +357,12 @@ class DbCloud {
   }
 
   // Adding reports
-  Future<void> addReport(String aboutReport, String report) async {
+  Future<void> addReport(String aboutReport, String report, String email) async {
     try {
       await _report.add({
         "aboutReport": aboutReport,
         "report": report,
+        "reporter": email,
       });
     } catch (error) {
       rethrow;

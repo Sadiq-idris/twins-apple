@@ -11,6 +11,7 @@ class MyInputField extends StatelessWidget {
     this.focusNode,
     this.maxLines,
     this.keyboardType,
+    this.onChanged,
   });
 
   final TextEditingController controller;
@@ -21,6 +22,7 @@ class MyInputField extends StatelessWidget {
   final FocusNode? focusNode;
   final int? maxLines;
   final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class MyInputField extends StatelessWidget {
       cursorColor: Theme.of(context).colorScheme.primary,
       maxLines: maxLines??1,
       keyboardType: keyboardType,
+      onChanged: onChanged,
       decoration: InputDecoration(
         label: label,
         filled: true,

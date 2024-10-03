@@ -60,68 +60,65 @@ class _ChatGateWayState extends State<ChatGateWay> {
               isAdmin: false,
             );
           } else {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Consultation",
-                    style: Theme.of(context).textTheme.headlineSmall,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Consultation",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const Text(
+                    "pay to have a consultation with a professional dietitian"),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "₦$price",
+                  style: TextStyle(
+                    fontFamily: "",
+                    fontSize: 18,
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Text(
-                      "paid to have a consultation with a professional dietitian"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "₦$price",
-                    style: TextStyle(
-                      fontFamily: "",
-                      fontSize: 18,
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MyButton(
-                    text: "Pay",
-                    color: Theme.of(context).colorScheme.primary,
-                    textColor: Colors.white,
-                    onTap: () async {
-                      final transaction = TransactionDetails().copyWith(
-                          amount: price,
-                          currencyCode: "NGN",
-                          customerName: widget.name,
-                          customerEmail: widget.email,
-                          paymentReference:
-                              "${Timestamp.now()}-payment-${widget.email}",
-                          paymentDescription:
-                              "Consultation payment by ${widget.email}");
-                      try {
-                        final response = monnify?.initializePayment(
-                            transaction: transaction);
-                        response?.then((res) {
-                          if (res?.transactionStatus == "PAID") {
-                            _cloud.consultationPaid(widget.email, true);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Paid successfully"),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            setState(() {});
-                          }
-                        });
-                      } catch (error) {
-                        print("ERROR -----> $error");
-                      }
-                    },
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MyButton(
+                  text: "Pay",
+                  color: Theme.of(context).colorScheme.primary,
+                  textColor: Colors.white,
+                  onTap: () async {
+                    final transaction = TransactionDetails().copyWith(
+                        amount: price,
+                        currencyCode: "NGN",
+                        customerName: widget.name,
+                        customerEmail: widget.email,
+                        paymentReference:
+                            "${Timestamp.now()}-payment-${widget.email}",
+                        paymentDescription:
+                            "Consultation payment by ${widget.email}");
+                    try {
+                      final response = monnify?.initializePayment(
+                          transaction: transaction);
+                      response?.then((res) {
+                        if (res?.transactionStatus == "PAID") {
+                          _cloud.consultationPaid(widget.email, true);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Paid successfully"),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          setState(() {});
+                        }
+                      });
+                    } catch (error) {
+                      print("ERROR -----> $error");
+                    }
+                  },
+                ),
+              ],
             );
           }
         }

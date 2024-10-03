@@ -34,7 +34,6 @@ class ArticleTile extends StatefulWidget {
 class _ArticleTileState extends State<ArticleTile> {
   final DbCloud _cloud = DbCloud();
   final Storage _storage = Storage();
-  final TextEditingController _aboutReportController = TextEditingController();
   final TextEditingController _reportController = TextEditingController();
   ImageProvider<Object>? imageCache;
 
@@ -200,7 +199,6 @@ class _ArticleTileState extends State<ArticleTile> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  print("clicked");
                                   showDialog(
                                     context: context,
                                     builder: (context) {
@@ -231,6 +229,7 @@ class _ArticleTileState extends State<ArticleTile> {
                                                       _cloud.addReport(
                                                         "Article report - ${widget.title}",
                                                         _reportController.text,
+                                                        user.email!,
                                                       );
                                                       Navigator.pop(context);
                                                       Navigator.pop(context);

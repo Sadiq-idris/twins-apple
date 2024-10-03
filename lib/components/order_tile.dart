@@ -38,7 +38,7 @@ class _OrderTileState extends State<OrderTile> {
         if (adminEmail == userEmail) {
           updateOrder(context, widget.order);
         } else {
-          orderUserInfo(context, orderModel);
+          orderUserInfo(context, orderModel, userEmail!);
         }
       },
       child: ListTile(
@@ -77,7 +77,8 @@ class _OrderTileState extends State<OrderTile> {
     );
   }
 
-  Future<dynamic> orderUserInfo(BuildContext context, OrderModel orderModel) {
+  Future<dynamic> orderUserInfo(
+      BuildContext context, OrderModel orderModel, String userEmail) {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -122,6 +123,7 @@ class _OrderTileState extends State<OrderTile> {
                                     _cloud.addReport(
                                       "Product report - ${orderModel.product["name"]}",
                                       _reportController.text,
+                                      userEmail,
                                     );
                                     Navigator.pop(context);
                                     Navigator.pop(context);
@@ -178,9 +180,13 @@ class _OrderTileState extends State<OrderTile> {
             return Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    "User email:",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                   Text(
                     order["userEmail"],
                   ),
@@ -188,8 +194,20 @@ class _OrderTileState extends State<OrderTile> {
                     height: 10,
                   ),
                   Text(
+                    "Product name:",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  Text(
                     order["product"]["name"],
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "User address:",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  Text(order["address"]),
                   const SizedBox(
                     height: 10,
                   ),
@@ -219,6 +237,7 @@ class _OrderTileState extends State<OrderTile> {
                         product: order["product"],
                         isDelivered: selected,
                         howMany: order["howMany"],
+                        address: order["address"],
                       );
                       _cloud.updateOrder(
                         widget.docId,
@@ -254,7 +273,7 @@ class _OrderTileState extends State<OrderTile> {
                     ],
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       launchUrlString("tel:+234$phoneNumber");
                     },
                     child: ListTile(

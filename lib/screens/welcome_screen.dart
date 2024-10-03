@@ -43,11 +43,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         //   isLoading = false;
         // });
         _cloud.saveUser(response.email, response.uid, null);
-        final formattedDate = DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
+        final formattedDate =
+            DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
 
         final dateTime = DateFormat("yyy-MM-dd").format(DateTime.now());
 
-        if(formattedDate == dateTime){
+        if (formattedDate == dateTime) {
           _cloud.consultationPaid(response.email, null);
         }
         Navigator.pushNamed(context, "auth-gate");
@@ -59,6 +60,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         );
       }
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override

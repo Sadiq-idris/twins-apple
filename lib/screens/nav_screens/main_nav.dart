@@ -1,15 +1,14 @@
+import 'package:dietitian_cons/backend/auth_services.dart';
 import 'package:dietitian_cons/backend/db_cloud.dart';
 import 'package:dietitian_cons/components/article_showcase_cards.dart';
 import 'package:dietitian_cons/components/my_drawer.dart';
 import 'package:dietitian_cons/components/product_showcase_cards.dart';
 import 'package:dietitian_cons/components/recipe_showcase_cards.dart';
-import 'package:dietitian_cons/provider/auth_provider.dart';
 import 'package:dietitian_cons/screens/nav_screens/article_nav.dart';
 import 'package:dietitian_cons/screens/nav_screens/recipe_nav.dart';
 import 'package:dietitian_cons/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class MainNav extends StatefulWidget {
   const MainNav({super.key});
@@ -24,7 +23,7 @@ class _MainNavState extends State<MainNav> {
 
   @override
   Widget build(BuildContext context) {
-    final userEmail = Provider.of<MyAuthProvider>(context, listen:false).user!.email;
+    final userEmail = AuthServices().getCurrentuser()!.email;
     
     return Scaffold(
       appBar: AppBar(

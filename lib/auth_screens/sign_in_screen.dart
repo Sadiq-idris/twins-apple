@@ -93,11 +93,12 @@ class _SignInScreenState extends State<SignInScreen> {
         });
         // final user = await _cloud.getSingleUser(response.email);
         _cloud.saveUser(response.email, response.uid, null);
-        final formattedDate = DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
+        final formattedDate =
+            DateFormat("yyy-MM-dd").format(response.metadata.creationTime);
 
         final dateTime = DateFormat("yyy-MM-dd").format(DateTime.now());
 
-        if(formattedDate == dateTime){
+        if (formattedDate == dateTime) {
           _cloud.consultationPaid(response.email, null);
         }
         _cloud.addNotification(response.email, false, false);
@@ -110,6 +111,9 @@ class _SignInScreenState extends State<SignInScreen> {
         );
       }
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
