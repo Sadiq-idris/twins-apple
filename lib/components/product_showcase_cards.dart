@@ -38,6 +38,8 @@ class _ProductShowcaseCardsState extends State<ProductShowcaseCards> {
                 },
               ),
             );
+          } else{
+            return const Icon(Icons.hourglass_empty_rounded);
           }
         } else if (snapshots.connectionState == ConnectionState.waiting) {
           return Container(

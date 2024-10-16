@@ -14,13 +14,12 @@ class MessageCard extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            color: sender?Theme.of(context).colorScheme.primary : Colors.grey,
+            color: sender?Theme.of(context).colorScheme.secondary : Colors.grey,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(
+          child: SelectableText(
             message,
-            softWrap: true,
-            maxLines: 10,
+            // softWrap: true,
             style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
           ),
         ),

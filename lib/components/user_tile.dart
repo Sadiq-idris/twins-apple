@@ -43,7 +43,7 @@ class _UserTileState extends State<UserTile> {
                   child: !widget.isAdmin
                       ? Container(
                           padding: const EdgeInsets.all(8),
-                          margin: const EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10, right: 10, left:10),
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.tertiary,
                             borderRadius: BorderRadius.circular(10),
@@ -79,7 +79,7 @@ class _UserTileState extends State<UserTile> {
                   child: !widget.isAdmin
                       ? Container(
                           padding: const EdgeInsets.all(8),
-                          margin: const EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.tertiary,
                             borderRadius: BorderRadius.circular(10),

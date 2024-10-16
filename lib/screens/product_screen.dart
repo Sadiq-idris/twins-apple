@@ -27,7 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delivery_dining),
-            onPressed: (){
+            onPressed: () {
               Navigator.pushNamed(context, "order-info");
             },
           ),
@@ -40,21 +40,30 @@ class _ProductScreenState extends State<ProductScreen> {
             builder: (context, snapshots) {
               if (snapshots.hasData) {
                 final data = snapshots.data;
-                return GridView.builder(
-                  itemCount: data!.length,
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    mainAxisExtent: 250,
-                  ),
-                  itemBuilder: (context, index) {
-                    final product = ProductModel.fromJson(data[index].data());
-                    final docId = data[index].id;
-                    return ProductTile(product: product, docId: docId,);
-                  },
-                );
+                if (data != null) {
+                  return GridView.builder(
+                    itemCount: data.length,
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      mainAxisExtent: 250,
+                    ),
+                    itemBuilder: (context, index) {
+                      final product = ProductModel.fromJson(data[index].data());
+                      final docId = data[index].id;
+                      return ProductTile(
+                        product: product,
+                        docId: docId,
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                      child: Icon(Icons.hourglass_empty_rounded));
+                }
               } else if (snapshots.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -73,15 +82,17 @@ class _ProductScreenState extends State<ProductScreen> {
               );
             }),
       ),
-     floatingActionButton: adminEmail == userEmail ? FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const NewProduct()),
-          );
-        },
-        child: const Icon(Icons.add),
-      ): const SizedBox(),
+      floatingActionButton: adminEmail == userEmail
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewProduct()),
+                );
+              },
+              child: const Icon(Icons.add),
+            )
+          : const SizedBox(),
     );
   }
 }

@@ -116,6 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
     });
   }
 
+
   @override
   void dispose() {
     super.dispose();
@@ -274,17 +275,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     // Spacing
                     const SizedBox(
                       height: 20,
-                    ),
-
-                    SocialButton(
-                      imageUrl: "assets/icons/facebook.png",
-                      providerName: "Facebook",
-                      onTap: () {},
-                    ),
-
-                    // Spacing
-                    const SizedBox(
-                      height: 10,
                     ),
 
                     // Sign up if dont have account

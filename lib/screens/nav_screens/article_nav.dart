@@ -71,34 +71,37 @@ class _ArticleNavState extends State<ArticleNav> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final documents = snapshot.data!.docs;
+                  if (documents.isNotEmpty) {
+                    return Expanded(
+                      child: ListView.builder(
+                          itemCount: documents.length,
+                          itemBuilder: (context, index) {
+                            // getting the data
+                            final data = documents[index].data();
+                            Map<String, dynamic> article = data;
 
-                  return Expanded(
-                    child: ListView.builder(
-                        itemCount: documents.length,
-                        itemBuilder: (context, index) {
-                          // getting the data
-                          final data = documents[index].data();
-                          Map<String, dynamic> article = data;
+                            // getting the id for each document
+                            String docId = documents[index].id;
 
-                          // getting the id for each document
-                          String docId = documents[index].id;
+                            // converting timestamp to datetime
+                            DateTime dateTime = article["createAt"].toDate();
 
-                          // converting timestamp to datetime
-                          DateTime dateTime = article["createAt"].toDate();
+                            // formatting the datetime
+                            String formattedDate =
+                                DateFormat("yMMMMEEEEd").format(dateTime);
 
-                          // formatting the datetime
-                          String formattedDate =
-                              DateFormat("yMMMMEEEEd").format(dateTime);
-
-                          return ArticleTile(
-                            title: article["title"],
-                            imageUrl: article["thumbnailUrl"],
-                            createAt: formattedDate,
-                            docId: docId,
-                            content: article["content"],
-                          );
-                        }),
-                  );
+                            return ArticleTile(
+                              title: article["title"],
+                              imageUrl: article["thumbnailUrl"],
+                              createAt: formattedDate,
+                              docId: docId,
+                              content: article["content"],
+                            );
+                          }),
+                    );
+                  }else{
+                    return const Center(child: Icon(Icons.hourglass_empty_rounded));
+                  }
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return const Center(

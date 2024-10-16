@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dietitian_cons/backend/db_cloud.dart';
 import 'package:dietitian_cons/backend/storage.dart';
@@ -21,16 +19,11 @@ class _NewProductState extends State<NewProduct> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _stockNoController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
   final Storage _storage = Storage();
   final DbCloud _cloud = DbCloud();
   List images = [];
   List<String> downloadUrlImages = [];
   bool isLoading = false;
-  String? selectedCategory;
-  String? fileName;
-  File? digitalProductFile;
-  String? digitalProductUrl;
 
   void selectImages() async {
     final response = await _storage.pickImage();
@@ -57,16 +50,6 @@ class _NewProductState extends State<NewProduct> {
     }
   }
 
-  void selectProductFile() async {
-    final response = await _storage.pickFile();
-    if (response != null) {
-      setState(() {
-        fileName = response[1];
-        digitalProductFile = response[0];
-      });
-    }
-  }
-
   void addProduct() async {
     setState(() {
       isLoading = true;
@@ -85,12 +68,6 @@ class _NewProductState extends State<NewProduct> {
         }
       }
 
-      // uploading digital product
-      if (digitalProductFile != null) {
-        digitalProductUrl = await _storage.uploadImage(
-            "digital_product/$fileName", digitalProductFile!);
-      }
-
       final product = ProductModel(
         name: _nameController.text,
         description: _descriptionController.text,
@@ -98,8 +75,6 @@ class _NewProductState extends State<NewProduct> {
         images: downloadUrlImages,
         stockNo: int.parse(_stockNoController.text),
         createAt: Timestamp.now(),
-        category: _categoryController.text,
-        product: digitalProductUrl ?? '',
       );
 
       _cloud.newProduct(product);
@@ -194,38 +169,6 @@ class _NewProductState extends State<NewProduct> {
                     ),
                     const SizedBox(
                       height: 15,
-                    ),
-                    DropdownMenu(
-                      label: const Text("Categories"),
-                      controller: _categoryController,
-                      onSelected: (value) {
-                        setState(() {
-                          selectedCategory = value;
-                        });
-                      },
-                      dropdownMenuEntries: const [
-                        DropdownMenuEntry(
-                            value: "physical product",
-                            label: "Physical product"),
-                        DropdownMenuEntry(
-                            value: "digital product", label: "Digital product"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    if (selectedCategory == "digital product")
-                      ImagePickerField(
-                        onTap: selectProductFile,
-                        fileName: "",
-                        label: "Digital product",
-                      ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    if (fileName != null) Text(fileName!),
-                    const SizedBox(
-                      height: 10,
                     ),
                     MyButton(
                       text: "Add",

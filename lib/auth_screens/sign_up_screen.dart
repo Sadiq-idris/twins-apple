@@ -97,8 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         setState(() {
           isLoading = false;
         });
-        _cloud.saveUser(
-            response.email, response.uid, int.parse(response.phoneNumber));
+
         _cloud.addNotification(response.email, false, false);
 
         final formattedDate =
@@ -107,6 +106,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         if (formattedDate == dateTime) {
           _cloud.consultationPaid(response.email, null);
+          _cloud.saveUser(
+              response.email, response.uid, int.parse(response?.phoneNumber));
         }
 
         Navigator.pushNamed(context, "auth-gate");
@@ -281,17 +282,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // Spacing
                     const SizedBox(
                       height: 20,
-                    ),
-
-                    SocialButton(
-                      imageUrl: "assets/icons/facebook.png",
-                      providerName: "Facebook",
-                      onTap: () {},
-                    ),
-
-                    // Spacing
-                    const SizedBox(
-                      height: 10,
                     ),
 
                     // Sign up if dont have account

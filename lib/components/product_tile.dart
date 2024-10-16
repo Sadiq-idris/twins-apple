@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dietitian_cons/backend/db_cloud.dart';
 import 'package:dietitian_cons/backend/storage.dart';
 import 'package:dietitian_cons/models/product_model.dart';
+import 'package:dietitian_cons/provider/auth_provider.dart';
 import 'package:dietitian_cons/screens/detail_product_screen.dart';
 import 'package:dietitian_cons/screens/forms/update_product.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductTile extends StatefulWidget {
   const ProductTile({super.key, required this.product, required this.docId});
@@ -28,6 +30,10 @@ class _ProductTileState extends State<ProductTile> {
 
   @override
   Widget build(BuildContext context) {
+    final adminEmail =
+        Provider.of<MyAuthProvider>(context, listen: false).adminEmail;
+    final userEmail =
+        Provider.of<MyAuthProvider>(context, listen: false).user!.email;
     return SizedBox(
       child: GestureDetector(
         onTap: () {
@@ -40,66 +46,65 @@ class _ProductTileState extends State<ProductTile> {
           );
         },
         onLongPress: () {
-          showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                return Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  height: 200,
-                  width: double.infinity,
-                  // decoration: BoxDecoration(),
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.product.name,
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  UpdateProduct(product: widget.product, docId: widget.docId),
-                            ),
-                          );
-                        },
-                        child: const ListTile(
-                          leading: Icon(Icons.update),
-                          title: Text("Update"),
+          if (adminEmail == userEmail) {
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    height: 200,
+                    width: double.infinity,
+                    // decoration: BoxDecoration(),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.product.name,
+                          style: Theme.of(context).textTheme.labelLarge,
                         ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          for (var image in widget.product.images) {
-                            final fileName = getFileName(image);
-                            final path = "product_images/$fileName";
-                            _storage.delete(path);
-                            print("Delete Product image");
-                          }
-                          if (widget.product.category == "Digital product") {
-                            _storage.delete(
-                                "digital_product/${getFileName(widget.product.product!)}");
-                            print("Digital product deleted");
-                          }
-                          _cloud.deleteProduct(widget.docId);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("product Deleted successfully"),
-                            ),
-                          );
-                          Navigator.pop(context);
-                        },
-                        child: const ListTile(
-                          leading: Icon(Icons.delete),
-                          title: Text("Delete"),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateProduct(
+                                    product: widget.product,
+                                    docId: widget.docId),
+                              ),
+                            );
+                          },
+                          child: const ListTile(
+                            leading: Icon(Icons.update),
+                            title: Text("Update"),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              });
+                        InkWell(
+                          onTap: () {
+                            for (var image in widget.product.images) {
+                              final fileName = getFileName(image);
+                              final path = "product_images/$fileName";
+                              _storage.delete(path);
+                              print("Delete Product image");
+                            }
+
+                            _cloud.deleteProduct(widget.docId);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("product Deleted successfully"),
+                              ),
+                            );
+                            Navigator.pop(context);
+                          },
+                          child: const ListTile(
+                            leading: Icon(Icons.delete),
+                            title: Text("Delete"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          }
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

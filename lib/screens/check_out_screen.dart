@@ -13,10 +13,8 @@ import 'package:provider/provider.dart';
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({
     super.key,
-    required this.isPhysicalProduct,
     required this.product,
   });
-  final bool isPhysicalProduct;
   final ProductModel product;
 
   @override
@@ -69,31 +67,29 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.isPhysicalProduct)
-              MyInputField(
-                controller: _howManyController,
-                obscureText: false,
-                hintText: "How many do you want to buy.",
-                label: const Text("How many."),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  setState(() {
-                    howMany = _howManyController.text.isNotEmpty
-                        ? int.parse(_howManyController.text)
-                        : 1;
-                  });
-                },
-              ),
+            MyInputField(
+              controller: _howManyController,
+              obscureText: false,
+              hintText: "Quantity",
+              label: const Text("Quantity"),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                setState(() {
+                  howMany = _howManyController.text.isNotEmpty
+                      ? int.parse(_howManyController.text)
+                      : 1;
+                });
+              },
+            ),
             const SizedBox(
               height: 10,
             ),
-            if (widget.isPhysicalProduct)
-              MyInputField(
-                controller: _addressController,
-                obscureText: false,
-                hintText: "Your address",
-                label: const Text("Address"),
-              ),
+            MyInputField(
+              controller: _addressController,
+              obscureText: false,
+              hintText: "Your address",
+              label: const Text("Address"),
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -109,9 +105,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               height: 10,
             ),
             MyButton(
-              text: widget.product.category == "Physical product"
-                  ? "Order now"
-                  : "Pay to download",
+              text: "Order now",
               color: Theme.of(context).colorScheme.primary,
               textColor: Colors.white,
               onTap: () async {
@@ -137,27 +131,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
                   response?.then((value) {
                     if (value?.transactionStatus == "PAID") {
-                      if (widget.product.category == "Digital product") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PaymentScreen(
-                              product: widget.product.product!,
-                            ),
-                          ),
-                        );
-                      } else {
-                        final order = OrderModel(
-                          userId: userId,
-                          userEmail: userEmail!,
-                          product: widget.product.toJson(),
-                          isDelivered: false,
-                          howMany: howMany,
-                          address: _addressController.text,
-                        );
-                        _cloud.newOrder(order);
-                        Navigator.pushNamed(context, "order-info");
-                      }
+                      final order = OrderModel(
+                        userId: userId,
+                        userEmail: userEmail!,
+                        product: widget.product.toJson(),
+                        isDelivered: false,
+                        howMany: howMany,
+                        address: _addressController.text,
+                      );
+                      _cloud.newOrder(order);
+                      Navigator.pushNamed(context, "order-info");
                     }
                   });
                 } catch (error) {

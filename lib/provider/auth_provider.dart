@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MyAuthProvider extends ChangeNotifier{
   User? _user;
-  final String _adminEmail = "aishamuhd363@gmail.com";
+  final String _adminEmail = "twinsapple094@gmail.com";
 
   String get adminEmail => _adminEmail;
 

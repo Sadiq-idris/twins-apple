@@ -48,10 +48,7 @@ class _RecipeNavState extends State<RecipeNav> {
         title: const Text("Recipes"),
         automaticallyImplyLeading: widget.isFirstTime ?? false,
         actions: [
-          IconButton(
-              onPressed: () {
-              },
-              icon: const Icon(Icons.favorite_outline))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline))
         ],
       ),
       body: Padding(
@@ -77,24 +74,28 @@ class _RecipeNavState extends State<RecipeNav> {
                 if (snapshot.hasData) {
                   final docs = snapshot.data!.docs;
                   final data = docs;
-                  return Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 5,
-                      ),
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        final recipe = data[index].data();
-                        final docId = data[index].id;
-                        // print(recipe);
+                  if (docs.isNotEmpty) {
+                    return Expanded(
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 5,
+                        ),
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          final recipe = data[index].data();
+                          final docId = data[index].id;
+                          // print(recipe);
 
-                        return RecipeTile(recipe: recipe, docId: docId);
-                      },
-                    ),
-                  );
+                          return RecipeTile(recipe: recipe, docId: docId);
+                        },
+                      ),
+                    );
+                  }else{
+                    return const Center(child: Icon(Icons.hourglass_empty_rounded));
+                  }
                 }
 
                 return const Center(child: CircularProgressIndicator());

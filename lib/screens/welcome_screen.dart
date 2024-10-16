@@ -167,15 +167,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             },
                             imageUrl: "assets/icons/google.png",
                           ),
-
-                          // Spacing
-                          const SizedBox(
-                            width: 10,
-                          ),
-
-                          const MyIconButton(
-                            imageUrl: "assets/icons/facebook.png",
-                          ),
                         ],
                       ),
 

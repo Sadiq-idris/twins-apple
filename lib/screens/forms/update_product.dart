@@ -23,7 +23,6 @@ class _UpdateProductState extends State<UpdateProduct> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _stockNoController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
   bool isLoading = false;
   String? selectedCategory;
   final DbCloud _cloud = DbCloud();
@@ -35,7 +34,6 @@ class _UpdateProductState extends State<UpdateProduct> {
     _descriptionController.text = widget.product.description;
     _priceController.text = widget.product.price.toString();
     _stockNoController.text = widget.product.stockNo.toString();
-    _categoryController.text = widget.product.category;
   }
 
   @override
@@ -45,7 +43,6 @@ class _UpdateProductState extends State<UpdateProduct> {
     _descriptionController.dispose();
     _priceController.dispose();
     _stockNoController.dispose();
-    _categoryController.dispose();
   }
 
   void updateProduct(context) {
@@ -57,7 +54,6 @@ class _UpdateProductState extends State<UpdateProduct> {
       images: product.images,
       stockNo: int.parse(_stockNoController.text),
       createAt: Timestamp.now(),
-      category: _categoryController.text,
     );
     _cloud.updateProduct(widget.docId, newProduct);
     Navigator.pop(context);
@@ -127,21 +123,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                     const SizedBox(
                       height: 15,
                     ),
-                    DropdownMenu(
-                      label: const Text("Categories"),
-                      controller: _categoryController,
-                      initialSelection: widget.product.category,
-                      dropdownMenuEntries: const [
-                        DropdownMenuEntry(
-                            value: "physical product",
-                            label: "Physical product"),
-                        DropdownMenuEntry(
-                            value: "digital product", label: "Digital product"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    
                     MyButton(
                       text: "Update",
                       color: Theme.of(context).colorScheme.primary,

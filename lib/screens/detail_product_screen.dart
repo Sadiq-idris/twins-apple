@@ -123,9 +123,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     height: 20,
                   ),
                   MyButton(
-                    text: widget.product.category == "Physical product"
-                        ? "Order now"
-                        : "Pay to download",
+                    text: "Order now",
                     color: Theme.of(context).colorScheme.primary,
                     textColor: Colors.white,
                     onTap: () async {
@@ -133,8 +131,6 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CheckOutScreen(
-                            isPhysicalProduct:
-                                widget.product.category == "Physical product",
                             product: widget.product,
                           ),
                         ),
