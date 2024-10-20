@@ -7,10 +7,10 @@ class AdHelper{
   static String get bannerAdUnitId {
     if(Platform.isAndroid){
       // Test ad unit id later change to my
-      return "ca-app-pub-3940256099942544/6300978111";
+      return "ca-app-pub-4372330859692195/6068409508";
     } else if(Platform.isIOS){
       // Test ad unit id later change to my ad unit id
-      return "ca-app-pub-3940256099942544/2934735716";
+      return "ca-app-pub-4372330859692195/3006932201";
     } else{
       throw UnsupportedError('Unsupported platform');
     }

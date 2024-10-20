@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCpuA7JPCnpF27Q-WcsQ1Gq7AaHPlRO-BY',
-    appId: '1:601142460329:android:20505c1feb6206f07c8eb8',
-    messagingSenderId: '601142460329',
-    projectId: 'twinapple-7590a',
-    storageBucket: 'twinapple-7590a.appspot.com',
+    apiKey: 'AIzaSyDwmUaG3QXrniukc1UwcgMLu1D-nuSOWQU',
+    appId: '1:119937085690:android:00a11464ac862f093b1943',
+    messagingSenderId: '119937085690',
+    projectId: 'twinsapple-ad66d',
+    storageBucket: 'twinsapple-ad66d.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA-fKTOfWJNA2Au1s7Q_aJDSp0dae8lr20',
-    appId: '1:601142460329:ios:5ff476c3db59c7297c8eb8',
-    messagingSenderId: '601142460329',
-    projectId: 'twinapple-7590a',
-    storageBucket: 'twinapple-7590a.appspot.com',
+    apiKey: 'AIzaSyABgk3Mjxf77hnbVXneNL_k_4qNUzBiXV4',
+    appId: '1:119937085690:ios:c573b3f3342643143b1943',
+    messagingSenderId: '119937085690',
+    projectId: 'twinsapple-ad66d',
+    storageBucket: 'twinsapple-ad66d.appspot.com',
     iosBundleId: 'com.example.dietitianCons',
   );
+
 }
