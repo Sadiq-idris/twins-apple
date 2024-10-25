@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>601142460329-15pl3o7h42k44rts73a9gofj7tf7dr5a.apps.googleusercontent.com</string>
+	<string>119937085690-4dfuaj48r32nv84r7cqjv4ugb3qdt879.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.601142460329-15pl3o7h42k44rts73a9gofj7tf7dr5a</string>
+	<string>com.googleusercontent.apps.119937085690-4dfuaj48r32nv84r7cqjv4ugb3qdt879</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA-fKTOfWJNA2Au1s7Q_aJDSp0dae8lr20</string>
+	<string>AIzaSyABgk3Mjxf77hnbVXneNL_k_4qNUzBiXV4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>601142460329</string>
+	<string>119937085690</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.dietitianCons</string>
 	<key>PROJECT_ID</key>
-	<string>twinapple-7590a</string>
+	<string>twinsapple-ad66d</string>
 	<key>STORAGE_BUCKET</key>
-	<string>twinapple-7590a.appspot.com</string>
+	<string>twinsapple-ad66d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:601142460329:ios:5ff476c3db59c7297c8eb8</string>
+	<string>1:119937085690:ios:c573b3f3342643143b1943</string>
 </dict>
 </plist>

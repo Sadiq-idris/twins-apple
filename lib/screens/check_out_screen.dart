@@ -28,7 +28,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   final _cloud = DbCloud();
 
   late Monnify? monnify;
-  String apiKey = "MK_TEST_0LG8BY5ANH";
+  String apiKey = "LJKHE0QFSMGCSHQDJTC3GXLTJTAU9T3H";
   String contractCode = "6110587178";
   // Apikey - LJKHE0QFSMGCSHQDJTC3GXLTJTAU9T3H
   // TEST API - MK_TEST_OLG8BY5ANH
@@ -42,7 +42,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   void initialMonnify() async {
     monnify = await Monnify.initialize(
-      applicationMode: ApplicationMode.TEST,
+      applicationMode: ApplicationMode.LIVE,
       apiKey: apiKey,
       contractCode: contractCode,
     );

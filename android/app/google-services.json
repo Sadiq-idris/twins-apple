@@ -12,7 +12,12 @@
           "package_name": "com.example.dietitian_cons"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "119937085690-js204fnhdfms4bhofrv9fsucbtm3f0j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDwmUaG3QXrniukc1UwcgMLu1D-nuSOWQU"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119937085690-js204fnhdfms4bhofrv9fsucbtm3f0j6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "119937085690-4dfuaj48r32nv84r7cqjv4ugb3qdt879.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dietitianCons"
+              }
+            }
+          ]
         }
       }
     }
